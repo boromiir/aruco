@@ -32,8 +32,10 @@ for i, fname in tqdm.tqdm(enumerate(images)):
         imgpoints.append(corners2)
         # Draw and display the corners
         img = cv2.drawChessboardCorners(img, chessboard_res, corners2,ret)
-        cv2.imshow("foto"+str(i), img)
+        window_name = fname+"____foto"+str(i)
+        cv2.imshow(window_name, img)
         cv2.waitKey(0)
+        cv2.destroyWindow(window_name) 
 
 ret, mtx, dist, rvecs, tvecs = cv2.calibrateCamera(objpoints, imgpoints, gray.shape[::-1],None,None)
 print("ret", ret)
