@@ -4,6 +4,7 @@ import cv2.aruco as aruco
 import glob
 from datetime import datetime
 cap = cv2.VideoCapture(0)
+marker_length = 0.1
 '''
 ####---------------------- CALIBRATION ---------------------------
 # termination criteria for the iterative algorithm
@@ -93,16 +94,19 @@ while (True):
 
         # estimate pose of each marker and return the values
         # rvet and tvec-different from camera coefficients
-        rvec, tvec ,_ = aruco.estimatePoseSingleMarkers(corners, 0.05, mtx, dist)
+        rvec, tvec ,_ = aruco.estimatePoseSingleMarkers(corners, marker_length, mtx, dist)
         #(rvec-tvec).any() # get rid of that nasty numpy value array error
-        rotation = cv2.Rodrigues(rvec)[0]
-        for i in range(0, ids.size):
-            # draw axis for the aruco markers
+        if rvec is None:
+            continue
+        for coor in range(rvec.shape[0]):
             
-            cv2.imwrite('raw/'+str(detections) + "good.png", frame)
-            aruco.drawAxis(frame, mtx, dist, rvec[i], tvec[i], 0.1)
-            cv2.imwrite('axis'+str(detections) + "with_axis.png", frame)
-            detections += 1
+            for i in range(0, ids.size):
+                # draw axis for the aruco markers
+                
+                #cv2.imwrite('raw/'+str(detections) + "good.png", frame)
+                aruco.drawAxis(frame, mtx, dist, rvec[i], tvec[i], 0.1)
+                #cv2.imwrite('axis/'+str(detections) + "with_axis.png", frame)
+                detections += 1
         # draw a square around the markers
         aruco.drawDetectedMarkers(frame, corners)
 
