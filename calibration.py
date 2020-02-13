@@ -2,6 +2,7 @@ import glob
 
 import cv2
 import numpy as np
+import tqdm
 
 ####---------------------- CALIBRATION ---------------------------
 # termination criteria for the iterative algorithm
@@ -16,7 +17,7 @@ imgpoints = [] # 2d points in image plane.
 # iterating through all calibration images
 # in the folder
 images = glob.glob('calib_images/*.jpg')
-for fname in images:
+for i, fname in tqdm.tqdm(enumerate(images)):
     img = cv2.imread(fname)
     gray = cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
     # find the chess board (calibration pattern) corners
@@ -30,6 +31,9 @@ for fname in images:
         imgpoints.append(corners2)
         # Draw and display the corners
         img = cv2.drawChessboardCorners(img, (7,6), corners2,ret)
+        cv2.imshow("foto"+str(i), img)
+        cv2.waitKey(0)
+
 ret, mtx, dist, rvecs, tvecs = cv2.calibrateCamera(objpoints, imgpoints, gray.shape[::-1],None,None)
 print("ret", ret)
 print("mtx", mtx)
