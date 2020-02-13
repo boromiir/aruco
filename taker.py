@@ -12,20 +12,7 @@ mtx = np.array([[  focal,   0.00000000e+00,   width//2],
        [  0.00000000e+00,   focal,   height//2],
        [  0.00000000e+00,   0.00000000e+00,   1.00000000e+00]])
 
-dist = np.array([[ 0],
-       [  0],
-       [  0],
-       [ 0],
-       [ 0],
-       [  0],
-       [ 0],
-       [  0],
-       [  0.00000000e+00],
-       [  0.00000000e+00],
-       [  0.00000000e+00],
-       [  0.00000000e+00],
-       [  0.00000000e+00],
-       [  0.00000000e+00]])
+dist = np.array([[-0.12481632, -0.00360626,  0.00294025, -0.00138677,  0.52909508]])
 
 
 ###------------------ ARUCO TRACKER ---------------------------
@@ -64,8 +51,7 @@ while (True):
             for i in range(0, ids.size):
                 # draw axis for the aruco markers
                 print(tvec[i])
-                cv2.putText(frame, "tvec" + str(tvec[i][0][0])+" "+ str(tvec[i][0][1])+ " " +str(tvec[i][0][2]),
-                 (0,32), font, 1, (0,255,0),2,cv2.LINE_AA)
+                cv2.putText(frame, "tvec" + "{0:.2f}".format(tvec[i][0][0])+" "+ "{0:.2f}".format(tvec[i][0][1])+ " " +"{0:.2f}".format(tvec[i][0][2]),(0,32), font, 1, (0,255,0),2,cv2.LINE_AA)
                 #cv2.imwrite('raw/'+str(detections) + "good.png", frame)
                 aruco.drawAxis(frame, mtx, dist, rvec[i], tvec[i], 0.1)
                 #cv2.imwrite('axis/'+str(detections) + "with_axis.png", frame)
