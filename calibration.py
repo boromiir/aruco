@@ -1,3 +1,8 @@
+import glob
+
+import cv2
+import numpy as np
+
 ####---------------------- CALIBRATION ---------------------------
 # termination criteria for the iterative algorithm
 criteria = (cv2.TERM_CRITERIA_EPS + cv2.TERM_CRITERIA_MAX_ITER, 30, 0.001)
@@ -26,3 +31,4 @@ for fname in images:
         # Draw and display the corners
         img = cv2.drawChessboardCorners(img, (7,6), corners2,ret)
 ret, mtx, dist, rvecs, tvecs = cv2.calibrateCamera(objpoints, imgpoints, gray.shape[::-1],None,None)
+print("ret", ret, "mtx", mtx, "dist", dist, "rvecs", rvecs, "tvecs", tvecs)
