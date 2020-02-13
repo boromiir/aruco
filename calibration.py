@@ -31,4 +31,8 @@ for fname in images:
         # Draw and display the corners
         img = cv2.drawChessboardCorners(img, (7,6), corners2,ret)
 ret, mtx, dist, rvecs, tvecs = cv2.calibrateCamera(objpoints, imgpoints, gray.shape[::-1],None,None)
-print("ret", ret, "mtx", mtx, "dist", dist, "rvecs", rvecs, "tvecs", tvecs)
+print("ret", ret)
+print("mtx", mtx)
+print("dist", dist)
+print("rvecs", rvecs)
+print("tvecs", tvecs)
