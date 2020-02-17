@@ -6,7 +6,7 @@ from datetime import datetime
 cap = cv2.VideoCapture(0)
 marker_length = 0.1
 
-focal = 640
+focal = 650
 width, height = 640,480
 mtx = np.array([[  focal,   0.00000000e+00,   width//2],
        [  0.00000000e+00,   focal,   height//2],
@@ -64,8 +64,8 @@ while (True):
         strg = ''
         for i in range(0, ids.size):
             strg += str(ids[i][0])+', '
-
-        cv2.putText(frame, "Id: " + strg, (0,64), font, 1, (0,255,0),2,cv2.LINE_AA)
+            offset = i*30
+            cv2.putText(frame, "Id: " + strg, (0+offset,64), font, 1, (0,255,0),2,cv2.LINE_AA)
 
 
     else:
